@@ -108,7 +108,7 @@
     	<formal-name>Multi-format Message String</formal-name>
     	<description>A message string or message format string rendered in multiple formats.</description>
     	<model>
-    	    <define-field name="text" min-occurs="0">
+    	    <define-field name="text" min-occurs="1">
                 <formal-name>Text</formal-name>
                 <description>A plain text message string or format string.</description>
             </define-field>
