@@ -5,7 +5,7 @@
     <schema-version>0.1.0</schema-version>
     <short-name>sarif</short-name>
     <namespace>https://docs.oasis-open.org/sarif/sarif/v2.1.0</namespace>
-    <json-base-uri>https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json</json-base-uri>
+    <json-base-uri>https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.json</json-base-uri>
     <define-field name="version">
         <formal-name>SARIF Model Version</formal-name>
         <description>The version of the SARIF Model used for conforming instances.</description>
