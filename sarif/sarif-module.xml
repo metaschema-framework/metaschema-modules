@@ -4,10 +4,8 @@
     <schema-name>SARIF Metaschema Module</schema-name>
     <schema-version>0.1.0</schema-version>
     <short-name>sarif</short-name>
-    <!-- TODO: Do we want to have 1:1 overlap with SARIF? I am not sure. -->
-    <namespace>https://json.schemastore.org/sarif/2.1.0</namespace>
-    <!-- TODO: Ditto here, this is the URL for the official spec release version. -->
-    <json-base-uri>https://json.schemastore.org/sarif-2.1.0.json</json-base-uri>
+    <namespace>https://docs.oasis-open.org/sarif/sarif/v2.1.0</namespace>
+    <json-base-uri>https://docs.oasis-open.org/sarif/sarif/v2.1.0/sarif-v2.1.0.json</json-base-uri>
     <define-field name="version">
         <formal-name>SARIF Model Version</formal-name>
         <description>The version of the SARIF Model used for conforming instances.</description>
