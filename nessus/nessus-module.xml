@@ -25,8 +25,6 @@
         </model>
     </define-assembly>
     <define-assembly name="Report">
-        <model>
-            <define-field name="ReportName" as-type="string"/>
-        </model>
+        <define-flag name="name" as-type="string"/>
     </define-assembly>    
 </METASCHEMA>
