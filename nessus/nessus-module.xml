@@ -11,4 +11,8 @@
     <short-name>nessus</short-name>
     <namespace>http://www.nessus.org/cm</namespace>
     <json-base-uri>http://www.nessus.org/cm</json-base-uri>
+    <define-assembly name="client-data">
+        <!-- Documents and community posts evidence NessusClientData and NessusClientData_v2, we use the latter for now. -->
+        <root-name>NessusClientData_v2</root-name>
+    </define-assembly>
 </METASCHEMA>
