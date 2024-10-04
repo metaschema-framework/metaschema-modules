@@ -15,4 +15,9 @@
         <!-- Documents and community posts evidence NessusClientData and NessusClientData_v2, we use the latter for now. -->
         <root-name>NessusClientData_v2</root-name>
     </define-assembly>
+    <define-assembly name="Policy">
+        <model>
+            <define-field name="PolicyName" as-type="string"/>
+        </model>
+    </define-assembly>
 </METASCHEMA>
