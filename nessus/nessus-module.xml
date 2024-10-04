@@ -22,6 +22,7 @@
     <define-assembly name="Policy">
         <model>
             <define-field name="PolicyName" as-type="string"/>
+            <define-field name="PolicyComments" as-type="string"/>
         </model>
     </define-assembly>
     <define-assembly name="Report">
