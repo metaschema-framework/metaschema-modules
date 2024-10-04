@@ -20,4 +20,9 @@
             <define-field name="PolicyName" as-type="string"/>
         </model>
     </define-assembly>
+    <define-assembly name="Report">
+        <model>
+            <define-field name="ReportName" as-type="string"/>
+        </model>
+    </define-assembly>    
 </METASCHEMA>
