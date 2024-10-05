@@ -19,6 +19,7 @@
                 <group-as name="Policies" in-xml="GROUPED"/>
             </assembly>
             <assembly ref="Report" min-occurs="0" max-occurs="1"/>
+            <assembly ref="PluginSelection"/>
         </model>
     </define-assembly>
     <define-assembly name="Policy">
@@ -37,18 +38,32 @@
             <assembly ref="PluginPreferences"/>
         </model>
     </define-assembly>
-    <define-assembly name="FamilyItem">
+    <define-assembly name="PluginSelection">
         <model>
-            <define-field name="FamilyName" as-type="string"/>
-            <define-field name="Status" as-type="string"/>
+            <assembly ref="FamilySelection"/>
+            <assembly ref="IndividualPluginSelection"/>
         </model>
     </define-assembly>
-    <define-assembly name="PluginItem">
+    <define-assembly name="FamilySelection">
         <model>
-            <define-field name="PluginId" as-type="string"/>
-            <define-field name="PluginName" as-type="string"/>
-            <define-field name="Family" as-type="string"/>
-            <define-field name="Status" as-type="string"/>
+            <define-assembly name="FamilyItem">
+                <model>
+                    <define-field name="FamilyName" as-type="string"/>
+                    <define-field name="Status" as-type="string"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>
+    <define-assembly name="IndividualPluginSelection">
+        <model>
+            <define-assembly name="PluginItem">
+                <model>
+                    <define-field name="PluginId" as-type="string"/>
+                    <define-field name="PluginName" as-type="string"/>
+                    <define-field name="Family" as-type="string"/>
+                    <define-field name="Status" as-type="string"/>
+                </model>
+            </define-assembly>
         </model>
     </define-assembly>
     <define-assembly name="PluginPreferences">
