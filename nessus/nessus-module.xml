@@ -15,7 +15,9 @@
         <!-- Documents and community posts evidence NessusClientData and NessusClientData_v2, we use the latter for now. -->
         <root-name>NessusClientData_v2</root-name>
         <model>
-            <assembly ref="Policy" min-occurs="0" max-occurs="1"/>
+            <assembly ref="Policy" min-occurs="0" max-occurs="1">
+                <group-as name="Policies" in-xml="GROUPED"/>
+            </assembly>
             <assembly ref="Report" min-occurs="0" max-occurs="1"/>
         </model>
     </define-assembly>
