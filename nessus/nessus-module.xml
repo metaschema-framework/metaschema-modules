@@ -31,6 +31,15 @@
     </define-assembly>
     <define-assembly name="Report">
         <define-flag name="name" as-type="string"/>
+        <model>
+            <define-assembly name="ReportHost">
+                <define-flag name="name" as-type="string"/>
+                <model>
+                    <assembly ref="HostProperties"/>
+                    <assembly ref="ReportItem"/>
+                </model>
+            </define-assembly>
+        </model>
     </define-assembly>
     <define-assembly name="Preferences">
         <model>
@@ -87,4 +96,12 @@
             <define-field name="value" as-type="string"/>
         </model>
     </define-assembly>
+    <define-assembly name="HostProperties">
+        <model>
+            <define-field name="tag">
+                <define-flag name="name" as-type="string"/>
+            </define-field>
+        </model>
+    </define-assembly>
+    <define-assembly name="ReportItem"></define-assembly>
 </METASCHEMA>
