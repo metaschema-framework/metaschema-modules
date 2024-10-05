@@ -40,6 +40,14 @@
             <define-field name="Status" as-type="string"/>
         </model>
     </define-assembly>
+    <define-assembly name="PluginItem">
+        <model>
+            <define-field name="PluginId" as-type="string"/>
+            <define-field name="PluginName" as-type="string"/>
+            <define-field name="Family" as-type="string"/>
+            <define-field name="Status" as-type="string"/>
+        </model>
+    </define-assembly>
     <define-assembly name="PluginPreferences">
         <model>
             <define-assembly name="item">
