@@ -103,5 +103,37 @@
             </define-field>
         </model>
     </define-assembly>
-    <define-assembly name="ReportItem"></define-assembly>
+    <define-assembly name="ReportItem">
+        <define-flag name="port" required="no" as-type="string"/>
+        <define-flag name="svc_name" required="no" as-type="string"/>
+        <define-flag name="protocol" required="no" as-type="string"/>
+        <define-flag name="severity" required="no" as-type="string"/>
+        <define-flag name="pluginID" required="no" as-type="string"/>
+        <define-flag name="pluginName" required="no" as-type="string"/>
+        <define-flag name="pluginFamily" required="no" as-type="string"/>
+        <model>
+            <define-field name="exploitability_ease" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="vuln_publication_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_temporal_vector" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="solution" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_temporal_score" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="risk_factor" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="description" min-occurs="0" max-occurs="1" as-type="string"/>
+            <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
+            <define-field name="plugin_publication_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_vector" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="synopsis" min-occurs="0" max-occurs="1" as-type="string"/>
+            <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
+            <define-field name="patch_publication_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="see_also" min-occurs="0" max-occurs="unbounded" as-type="string"/>
+            <define-field name="exploit_available" min-occurs="0" max-occurs="1" as-type="boolean"/>
+            <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
+            <define-field name="plugin_modification_date" min-occurs="0" max-occurs="1" as-type="date"/>
+            <define-field name="bid" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_base_score" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="xref" min-occurs="0" max-occurs="unbounded" as-type="string"></define-field>
+            <define-field name="plugin_output" min-occurs="0" max-occurs="1" as-type="markup-multiline"/>
+            <define-field name="plugin_version" min-occurs="0" max-occurs="1" as-type="string"/>
+        </model>
+    </define-assembly>
 </METASCHEMA>
