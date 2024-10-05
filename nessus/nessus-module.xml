@@ -34,6 +34,12 @@
             <assembly ref="PluginPreferences"/>
         </model>
     </define-assembly>
+    <define-assembly name="FamilyItem">
+        <model>
+            <define-field name="FamilyName" as-type="string"/>
+            <define-field name="Status" as-type="string"/>
+        </model>
+    </define-assembly>
     <define-assembly name="PluginPreferences">
         <model>
             <define-assembly name="item">
