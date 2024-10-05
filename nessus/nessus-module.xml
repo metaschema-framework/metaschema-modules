@@ -30,20 +30,17 @@
     </define-assembly>
     <define-assembly name="Preferences">
         <model>
-            <assembly ref="PreferenceWrapper">
-                <use-name>ServerPreferences</use-name>
-            </assembly>
-            <assembly ref="PreferenceWrapper">
-                <use-name>PluginPreferences</use-name>
-            </assembly>
+            <assembly ref="ServerPreferences"/>
+            <assembly ref="PluginPreferences"/>
         </model>
     </define-assembly>
-    <define-assembly name="PreferenceWrapper">
+    <define-assembly name="PluginPreferences">
         <model>
-            <assembly ref="preference" min-occurs="0" max-occurs="unbounded"/>
+            <define-field name="name" as-type="string"/>
+            <define-field name="value" as-type="string"/>
         </model>
-    </define-assembly>
-    <define-assembly name="preference">
+    </define-assembly>    
+    <define-assembly name="ServerPreferences">
         <model>
             <define-field name="name" as-type="string"/>
             <define-field name="value" as-type="string"/>
