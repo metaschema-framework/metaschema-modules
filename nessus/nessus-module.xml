@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/usnistgov/metaschema/develop/schema/xml/metaschema.xsd" type="application/xml" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<METASCHEMA xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://csrc.nist.gov/ns/oscal/metaschema/1.0">
+    <schema-name>Tenable Nessus Metaschema Module</schema-name>
+    <schema-version>0.1.0</schema-version>
+    <!-- 
+        Nessus XML's core data does not have a defined namespace.
+
+        https://developer.tenable.com/docs/export-file-formats
+        https://community.tenable.com/s/question/0D5f200004rM1i0CAC/nessus-xml-xsd
+
+        Some of the fields with compliance information use the 'http://www.nessus.org/cm'
+        namespace with prefix `cm:example` in documentation, so such examples
+        imply this other namepsace is not the default for the rest of the
+        document. Below we declare a community namespace for handling these
+        documents until upstream Tenable software produces well-formed XML.
+
+    -->
+    <short-name>nessus</short-name>
+    <namespace>https://metaschema.dev/ns/nessus</namespace>
+    <json-base-uri>https://metaschema.dev/ns/nessus</json-base-uri>
+    <define-assembly name="NessusClientData_v2">
+        <!-- Documents and community posts evidence NessusClientData and NessusClientData_v2, we use the latter for now. -->
+        <root-name>NessusClientData_v2</root-name>
+        <model>
+            <assembly ref="Policy" min-occurs="0" max-occurs="1"/>
+            <assembly ref="Report" min-occurs="0" max-occurs="1"/>
+            <assembly ref="IndividualPluginSelection" min-occurs="0" max-occurs="1"/>
+        </model>
+    </define-assembly>
+    <define-assembly name="Policy">
+        <model>
+            <define-field name="policyName" as-type="string" min-occurs="0" max-occurs="1"/>
+            <define-field name="policyComments" as-type="string" min-occurs="0" max-occurs="1"/>
+            <assembly ref="Preferences" min-occurs="1" max-occurs="1"/>
+            <assembly ref="FamilySelection"/>
+        </model>
+    </define-assembly>
+    <define-assembly name="Report">
+        <define-flag name="name" as-type="string"/>
+        <model>
+            <define-assembly name="ReportHost">
+                <define-flag name="name" as-type="string"/>
+                <model>
+                    <assembly ref="HostProperties"/>
+                    <assembly ref="ReportItem"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>
+    <define-assembly name="Preferences">
+        <model>
+            <assembly ref="ServerPreferences"/>
+            <assembly ref="PluginsPreferences" min-occurs="0" max-occurs="1"/>
+        </model>
+    </define-assembly>
+    <define-assembly name="IndividualPluginSelection">
+        <model>
+            <define-assembly name="PluginItem">
+                <model>
+                    <define-field name="PluginId" as-type="string"/>
+                    <define-field name="PluginName" as-type="string"/>
+                    <define-field name="Family" as-type="string"/>
+                    <define-field name="Status" as-type="string"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>
+    <define-assembly name="FamilySelection">
+        <model>
+            <define-assembly name="FamilyItem">
+                <model>
+                    <define-field name="FamilyName" as-type="string"/>
+                    <define-field name="Status" as-type="string"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>
+    <define-assembly name="PluginsPreferences">
+        <model>
+            <define-assembly name="item">
+                <!-- <group-as name="items" in-json="ARRAY"/> -->
+                <model>
+                    <define-field name="pluginName" as-type="string"/>
+                    <define-field name="pluginId" as-type="string"/>
+                    <define-field name="fullName" as-type="string"/>
+                    <define-field name="preferenceName" as-type="string"/>
+                    <define-field name="preferenceType" as-type="string"/>
+                    <define-field name="preferenceValues"/>
+                    <define-field name="selectedValue" as-type="string"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>    
+    <define-assembly name="ServerPreferences">
+        <model>
+            <define-assembly name="preference" min-occurs="1" max-occurs="unbounded">
+                <group-as name="preferences" in-json="ARRAY"/>
+                <model>
+                    <define-field name="name" as-type="string" min-occurs="1" max-occurs="1"/>
+                    <define-field name="value" as-type="string" min-occurs="1" max-occurs="1"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>
+    <define-assembly name="HostProperties">
+        <model>
+            <define-field name="tag">
+                <group-as name="tags" in-json="ARRAY"/>
+                <define-flag name="name" as-type="string"/>
+            </define-field>
+        </model>
+    </define-assembly>
+    <define-assembly name="ReportItem">
+        <define-flag name="port" required="no" as-type="string"/>
+        <define-flag name="svc_name" required="no" as-type="string"/>
+        <define-flag name="protocol" required="no" as-type="string"/>
+        <define-flag name="severity" required="no" as-type="string"/>
+        <define-flag name="pluginID" required="no" as-type="string"/>
+        <define-flag name="pluginName" required="no" as-type="string"/>
+        <define-flag name="pluginFamily" required="no" as-type="string"/>
+        <model>
+            <define-field name="exploitability_ease" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="vuln_publication_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_temporal_vector" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="solution" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_temporal_score" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="risk_factor" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="description" min-occurs="0" max-occurs="1" as-type="string"/>
+            <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
+            <define-field name="plugin_publication_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_vector" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="synopsis" min-occurs="0" max-occurs="1" as-type="string"/>
+            <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
+            <define-field name="patch_publication_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="see_also" min-occurs="0" max-occurs="unbounded" as-type="string">
+                <group-as name="see_also" in-json="ARRAY"/>
+            </define-field>
+            <define-field name="exploit_available" min-occurs="0" max-occurs="1" as-type="boolean"/>
+            <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
+            <define-field name="plugin_modification_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="fname" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="bid" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="cvss_base_score" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="xref" min-occurs="0" max-occurs="unbounded" as-type="string">
+                <group-as name="see_also" in-json="ARRAY"/>
+            </define-field>        
+            <define-field name="plugin_output" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="plugin_version" min-occurs="0" max-occurs="1" as-type="string"/>
+        </model>
+    </define-assembly>
+</METASCHEMA>
