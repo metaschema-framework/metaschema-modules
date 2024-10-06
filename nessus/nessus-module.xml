@@ -136,7 +136,7 @@
             <define-field name="xref" min-occurs="0" max-occurs="unbounded" as-type="string">
                 <group-as name="see_also" in-json="ARRAY"/>
             </define-field>        
-            <define-field name="plugin_output" min-occurs="0" max-occurs="1" as-type="markup-multiline"/>
+            <define-field name="plugin_output" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="plugin_version" min-occurs="0" max-occurs="1" as-type="string"/>
         </model>
     </define-assembly>
