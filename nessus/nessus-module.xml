@@ -4,29 +4,36 @@
     <schema-name>Tenable Nessus Metaschema Module</schema-name>
     <schema-version>0.1.0</schema-version>
     <!-- 
-        Developer docs and forum posts mention the namespace:
+        Nessus XML's core data does not have a defined namespace.
+
         https://developer.tenable.com/docs/export-file-formats
         https://community.tenable.com/s/question/0D5f200004rM1i0CAC/nessus-xml-xsd
+
+        Some of the fields with compliance information use the 'http://www.nessus.org/cm'
+        namespace with prefix `cm:example` in documentation, so such examples
+        imply this other namepsace is not the default for the rest of the
+        document. Below we declare a community namespace for handling these
+        documents until upstream Tenable software produces well-formed XML.
+
     -->
     <short-name>nessus</short-name>
-    <namespace>http://www.nessus.org/cm</namespace>
-    <json-base-uri>http://www.nessus.org/cm</json-base-uri>
+    <namespace>https://metaschema.dev/ns/nessus</namespace>
+    <json-base-uri>https://metaschema.dev/ns/nessus</json-base-uri>
     <define-assembly name="NessusClientData_v2">
         <!-- Documents and community posts evidence NessusClientData and NessusClientData_v2, we use the latter for now. -->
         <root-name>NessusClientData_v2</root-name>
         <model>
-            <assembly ref="Policy" min-occurs="0" max-occurs="1">
-                <group-as name="Policies" in-xml="GROUPED"/>
-            </assembly>
+            <assembly ref="Policy" min-occurs="0" max-occurs="1"/>
             <assembly ref="Report" min-occurs="0" max-occurs="1"/>
-            <assembly ref="PluginSelection" min-occurs="0" max-occurs="1"/>
+            <assembly ref="IndividualPluginSelection" min-occurs="0" max-occurs="1"/>
         </model>
     </define-assembly>
     <define-assembly name="Policy">
         <model>
-            <define-field name="PolicyName" as-type="string"/>
-            <define-field name="PolicyComments" as-type="string"/>
-            <assembly ref="Preferences"/>
+            <define-field name="policyName" as-type="string" min-occurs="0" max-occurs="1"/>
+            <define-field name="policyComments" as-type="string" min-occurs="0" max-occurs="1"/>
+            <assembly ref="Preferences" min-occurs="1" max-occurs="1"/>
+            <assembly ref="FamilySelection"/>
         </model>
     </define-assembly>
     <define-assembly name="Report">
@@ -47,22 +54,6 @@
             <assembly ref="PluginsPreferences" min-occurs="0" max-occurs="1"/>
         </model>
     </define-assembly>
-    <define-assembly name="PluginSelection">
-        <model>
-            <assembly ref="FamilySelection"/>
-            <assembly ref="IndividualPluginSelection"/>
-        </model>
-    </define-assembly>
-    <define-assembly name="FamilySelection">
-        <model>
-            <define-assembly name="FamilyItem">
-                <model>
-                    <define-field name="FamilyName" as-type="string"/>
-                    <define-field name="Status" as-type="string"/>
-                </model>
-            </define-assembly>
-        </model>
-    </define-assembly>
     <define-assembly name="IndividualPluginSelection">
         <model>
             <define-assembly name="PluginItem">
@@ -75,16 +66,27 @@
             </define-assembly>
         </model>
     </define-assembly>
+    <define-assembly name="FamilySelection">
+        <model>
+            <define-assembly name="FamilyItem">
+                <model>
+                    <define-field name="FamilyName" as-type="string"/>
+                    <define-field name="Status" as-type="string"/>
+                </model>
+            </define-assembly>
+        </model>
+    </define-assembly>
     <define-assembly name="PluginsPreferences">
         <model>
             <define-assembly name="item">
+                <!-- <group-as name="items" in-json="ARRAY"/> -->
                 <model>
                     <define-field name="pluginName" as-type="string"/>
                     <define-field name="pluginId" as-type="string"/>
                     <define-field name="fullName" as-type="string"/>
                     <define-field name="preferenceName" as-type="string"/>
                     <define-field name="preferenceType" as-type="string"/>
-                    <define-field name="preferenceValues" as-type="string"/>
+                    <define-field name="preferenceValues"/>
                     <define-field name="selectedValue" as-type="string"/>
                 </model>
             </define-assembly>
@@ -92,13 +94,19 @@
     </define-assembly>    
     <define-assembly name="ServerPreferences">
         <model>
-            <define-field name="name" as-type="string"/>
-            <define-field name="value" as-type="string"/>
+            <define-assembly name="preference" min-occurs="1" max-occurs="unbounded">
+                <group-as name="preferences" in-json="ARRAY"/>
+                <model>
+                    <define-field name="name" as-type="string" min-occurs="1" max-occurs="1"/>
+                    <define-field name="value" as-type="string" min-occurs="1" max-occurs="1"/>
+                </model>
+            </define-assembly>
         </model>
     </define-assembly>
     <define-assembly name="HostProperties">
         <model>
             <define-field name="tag">
+                <group-as name="tags" in-json="ARRAY"/>
                 <define-flag name="name" as-type="string"/>
             </define-field>
         </model>
