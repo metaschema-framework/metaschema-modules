@@ -130,7 +130,7 @@
             </define-field>
             <define-field name="exploit_available" min-occurs="0" max-occurs="1" as-type="boolean"/>
             <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
-            <define-field name="plugin_modification_date" min-occurs="0" max-occurs="1" as-type="date"/>
+            <define-field name="plugin_modification_date" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="bid" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="cvss_base_score" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="xref" min-occurs="0" max-occurs="unbounded" as-type="string">
