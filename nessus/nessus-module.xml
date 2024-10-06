@@ -11,7 +11,7 @@
     <short-name>nessus</short-name>
     <namespace>http://www.nessus.org/cm</namespace>
     <json-base-uri>http://www.nessus.org/cm</json-base-uri>
-    <define-assembly name="client-data">
+    <define-assembly name="NessusClientData_v2">
         <!-- Documents and community posts evidence NessusClientData and NessusClientData_v2, we use the latter for now. -->
         <root-name>NessusClientData_v2</root-name>
         <model>
@@ -19,7 +19,7 @@
                 <group-as name="Policies" in-xml="GROUPED"/>
             </assembly>
             <assembly ref="Report" min-occurs="0" max-occurs="1"/>
-            <assembly ref="PluginSelection"/>
+            <assembly ref="PluginSelection" min-occurs="0" max-occurs="1"/>
         </model>
     </define-assembly>
     <define-assembly name="Policy">
@@ -131,6 +131,7 @@
             <define-field name="exploit_available" min-occurs="0" max-occurs="1" as-type="boolean"/>
             <!-- TODO: Unclear if example data conforms to more specific datatype than implemented below, investigate. -->
             <define-field name="plugin_modification_date" min-occurs="0" max-occurs="1" as-type="string"/>
+            <define-field name="fname" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="bid" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="cvss_base_score" min-occurs="0" max-occurs="1" as-type="string"/>
             <define-field name="xref" min-occurs="0" max-occurs="unbounded" as-type="string">
