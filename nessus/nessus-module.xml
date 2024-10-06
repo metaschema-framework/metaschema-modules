@@ -44,7 +44,7 @@
     <define-assembly name="Preferences">
         <model>
             <assembly ref="ServerPreferences"/>
-            <assembly ref="PluginPreferences"/>
+            <assembly ref="PluginsPreferences" min-occurs="0" max-occurs="1"/>
         </model>
     </define-assembly>
     <define-assembly name="PluginSelection">
@@ -75,7 +75,7 @@
             </define-assembly>
         </model>
     </define-assembly>
-    <define-assembly name="PluginPreferences">
+    <define-assembly name="PluginsPreferences">
         <model>
             <define-assembly name="item">
                 <model>
