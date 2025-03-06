@@ -310,9 +310,10 @@
                 <formal-name>Physical Location</formal-name>
                 <description>A physical location relevant to a result. Specifies a reference to a programming artifact together with a range of bytes or characters within that artifact.</description>
             </assembly>
-            <assembly ref="logicalLocation">
+            <assembly ref="logicalLocation" min-occurs="0" max-occurs="unbounded">
                 <formal-name>Logical Location</formal-name>
                 <description>The logical locations associated with the result.</description>
+                <group-as name="logicalLocations" in-json="ARRAY" />
             </assembly>
             <assembly ref="message">
                 <formal-name>Location Message</formal-name>
