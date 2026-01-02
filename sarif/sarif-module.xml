@@ -30,6 +30,8 @@
 		</model>
     </define-assembly>
     <define-assembly name="toolComponent">
+        <formal-name>Tool Component</formal-name>
+        <description>A component, such as a plug-in or the driver, of the analysis tool that was run.</description>
         <define-flag name="guid" as-type="uuid">
             <formal-name>Tool Component Unique Identifier</formal-name>
             <description>A stable, unique identifier for the tool component.</description>
