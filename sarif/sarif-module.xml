@@ -27,7 +27,34 @@
 	        	<description>A set of distinct strings that provide additional information.</description>
 	        	<group-as name="tags" in-json="ARRAY"/>
 	        </define-field>
+	        <assembly ref="timingData" min-occurs="0">
+	            <formal-name>Timing Data</formal-name>
+	            <description>Performance timing measurements for the associated item.</description>
+	            <use-name>timing</use-name>
+	        </assembly>
 		</model>
+    </define-assembly>
+    <define-assembly name="timingData">
+        <formal-name>Timing Data</formal-name>
+        <description>Performance timing measurements collected during validation.</description>
+        <model>
+            <define-field name="totalMs" as-type="decimal" min-occurs="0">
+                <formal-name>Total Duration (ms)</formal-name>
+                <description>Total accumulated time in milliseconds across all invocations.</description>
+            </define-field>
+            <define-field name="count" as-type="integer" min-occurs="0">
+                <formal-name>Invocation Count</formal-name>
+                <description>Number of times this item was evaluated.</description>
+            </define-field>
+            <define-field name="minMs" as-type="decimal" min-occurs="0">
+                <formal-name>Minimum Duration (ms)</formal-name>
+                <description>Minimum single-invocation duration in milliseconds.</description>
+            </define-field>
+            <define-field name="maxMs" as-type="decimal" min-occurs="0">
+                <formal-name>Maximum Duration (ms)</formal-name>
+                <description>Maximum single-invocation duration in milliseconds.</description>
+            </define-field>
+        </model>
     </define-assembly>
     <define-assembly name="toolComponent">
         <formal-name>Tool Component</formal-name>
@@ -103,6 +130,11 @@
                 <formal-name>Help Description</formal-name>
                 <description>Provides the primary documentation for the report, useful when there is no online documentation.</description>
                 <use-name>help</use-name>
+            </assembly>
+            <assembly ref="propertyBag" min-occurs="0">
+                <formal-name>Properties</formal-name>
+                <description>Key/value pairs that provide additional information about the reporting descriptor.</description>
+                <use-name>properties</use-name>
             </assembly>
         </model>
     </define-assembly>
@@ -483,6 +515,59 @@
             </assembly>
         </model>
     </define-assembly>
+    <define-assembly name="notification">
+        <formal-name>Notification</formal-name>
+        <description>Describes a condition relevant to the tool itself, as opposed to being relevant to a target being analyzed by the tool.</description>
+        <model>
+            <assembly ref="message" min-occurs="1">
+                <formal-name>Notification Message</formal-name>
+                <description>A message that describes the condition that was encountered.</description>
+            </assembly>
+            <define-field name="timeUtc" as-type="date-time-with-timezone" min-occurs="0">
+                <formal-name>Time UTC</formal-name>
+                <description>The Coordinated Universal Time (UTC) date and time at which the analysis tool generated the notification.</description>
+            </define-field>
+            <assembly ref="reportingDescriptorReference" min-occurs="0">
+                <formal-name>Associated Rule</formal-name>
+                <description>A reference used to locate the descriptor relevant to this notification.</description>
+                <use-name>associatedRule</use-name>
+            </assembly>
+            <assembly ref="propertyBag" min-occurs="0">
+                <formal-name>Properties</formal-name>
+                <description>Key/value pairs that provide additional information about the notification.</description>
+                <use-name>properties</use-name>
+            </assembly>
+        </model>
+    </define-assembly>
+    <define-assembly name="invocation">
+        <formal-name>Invocation</formal-name>
+        <description>The runtime environment of the analysis tool run.</description>
+        <model>
+            <define-field name="startTimeUtc" as-type="date-time-with-timezone" min-occurs="0">
+                <formal-name>Start Time UTC</formal-name>
+                <description>The Coordinated Universal Time (UTC) date and time at which the invocation started.</description>
+            </define-field>
+            <define-field name="endTimeUtc" as-type="date-time-with-timezone" min-occurs="0">
+                <formal-name>End Time UTC</formal-name>
+                <description>The Coordinated Universal Time (UTC) date and time at which the invocation ended.</description>
+            </define-field>
+            <define-field name="executionSuccessful" as-type="boolean" min-occurs="1">
+                <formal-name>Execution Successful</formal-name>
+                <description>Specifies whether the tool's execution completed successfully.</description>
+            </define-field>
+            <assembly ref="notification" min-occurs="0" max-occurs="unbounded">
+                <formal-name>Tool Execution Notification</formal-name>
+                <description>A list of runtime conditions detected by the tool during the analysis.</description>
+                <use-name>toolExecutionNotification</use-name>
+                <group-as name="toolExecutionNotifications" in-json="ARRAY" />
+            </assembly>
+            <assembly ref="propertyBag" min-occurs="0">
+                <formal-name>Properties</formal-name>
+                <description>Key/value pairs that provide additional information about the invocation.</description>
+                <use-name>properties</use-name>
+            </assembly>
+        </model>
+    </define-assembly>
     <define-assembly name="run">
         <formal-name>Run</formal-name>
         <description>Describes a single run of an analysis tool, and contains the reported output of that run.</description>
@@ -490,6 +575,11 @@
             <assembly ref="tool">
                 <formal-name>Tool</formal-name>
                 <description>Information about the tool or tool pipeline that generated the results in this run. A run can only contain results produced by a single tool or tool pipeline. A run can aggregate results from multiple log files, as long as context around the tool run (tool command-line arguments and the like) is identical for all aggregated files.</description>
+            </assembly>
+            <assembly ref="invocation" min-occurs="0" max-occurs="unbounded">
+                <formal-name>Invocation</formal-name>
+                <description>Describes the invocation of the analysis tool. The results in a run are the combined results from the invocations.</description>
+                <group-as name="invocations" in-json="ARRAY" />
             </assembly>
             <assembly ref="artifact" min-occurs="0" max-occurs="unbounded">
                 <formal-name>Artifact</formal-name>
