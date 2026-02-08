@@ -32,6 +32,7 @@
 	            <description>Performance timing measurements for the associated item.</description>
 	            <use-name>timing</use-name>
 	        </assembly>
+	        <any/>
 		</model>
     </define-assembly>
     <define-assembly name="timingData">
