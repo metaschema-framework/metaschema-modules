@@ -32,6 +32,11 @@
 	            <description>Performance timing measurements for the associated item.</description>
 	            <use-name>timing</use-name>
 	        </assembly>
+	        <assembly ref="letTimingEntry" min-occurs="0" max-occurs="unbounded">
+	            <formal-name>Let Statement Timings</formal-name>
+	            <description>Per-let-statement timing data for the associated constraint evaluation.</description>
+	            <group-as name="letTimings" in-json="ARRAY"/>
+	        </assembly>
 	        <any/>
 		</model>
     </define-assembly>
@@ -55,6 +60,21 @@
                 <formal-name>Maximum Duration (ms)</formal-name>
                 <description>Maximum single-invocation duration in milliseconds.</description>
             </define-field>
+        </model>
+    </define-assembly>
+    <define-assembly name="letTimingEntry">
+        <formal-name>Let Statement Timing Entry</formal-name>
+        <description>Timing data for a single let-statement evaluation.</description>
+        <define-flag name="name" required="yes">
+            <formal-name>Let Statement Name</formal-name>
+            <description>The name of the let-statement variable.</description>
+        </define-flag>
+        <model>
+            <assembly ref="timingData">
+                <formal-name>Timing Data</formal-name>
+                <description>Performance timing measurements for this let-statement.</description>
+                <use-name>timing</use-name>
+            </assembly>
         </model>
     </define-assembly>
     <define-assembly name="toolComponent">
@@ -248,6 +268,11 @@
                 <formal-name>Result Provenance</formal-name>
                 <description>Information about how and when the result was detected.</description>
                 <use-name>provenance</use-name>
+            </assembly>
+            <assembly ref="propertyBag" min-occurs="0">
+                <formal-name>Properties</formal-name>
+                <description>Key/value pairs that provide additional information about the result.</description>
+                <use-name>properties</use-name>
             </assembly>
         </model>
         <constraint>
